@@ -107,11 +107,14 @@ FREQTRADE__TELEGRAM__CHAT_ID=...
 | `MultiMa` | 4h | freqtrade-strategies |
 | `CombinedBinHAndCluc`, `ClucMay72018`, `Strategy005` | 5m | freqtrade-strategies |
 
-Сравнение простых стратегий одной командой:
+Сравнение простых стратегий (по группам с одинаковым таймфреймом):
 
 ```bash
 docker compose run --rm freqtrade download-data --config /freqtrade/user_data/config.json --timerange 20250101- --timeframes 5m 15m 1h 4h 1d
-docker compose run --rm freqtrade backtesting --config /freqtrade/user_data/config.json --timerange 20250101- --strategy-list EmaRsiTrendStrategy Supertrend TrendRiderStrategy MultiMa CombinedBinHAndCluc ClucMay72018 Strategy005
+# --strategy-list needs one common timeframe, so strategies are grouped by timeframe
+docker compose run --rm freqtrade backtesting --config /freqtrade/user_data/config.json --timerange 20250101- --timeframe 1h --strategy-list EmaRsiTrendStrategy Supertrend TrendRiderStrategy
+docker compose run --rm freqtrade backtesting --config /freqtrade/user_data/config.json --timerange 20250101- --timeframe 5m --strategy-list CombinedBinHAndCluc ClucMay72018 Strategy005
+docker compose run --rm freqtrade backtesting --config /freqtrade/user_data/config.json --timerange 20250101- --strategy MultiMa
 ```
 
 NostalgiaForInfinity требует свои настройки ордеров — добавьте второй конфиг `config-nfi.json`.
