@@ -133,3 +133,18 @@ docker compose run --rm freqtrade backtesting --config /freqtrade/user_data/conf
 
 > NFI не использует классический стоп-лосс (`stoploss = -0.99`) и докупает позиции при просадке (DCA),
 > поэтому сделки могут висеть в минусе неделями. Смотрите на максимальную просадку, а не только на прибыль.
+
+## Запуск на VPS
+
+Нужен сервер с Ubuntu 22.04/24.04, от 2 ГБ RAM (лучше 4 ГБ), расположенный **не в США**
+(Binance блокирует американские IP). Под root выполните:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/shaqirov/tradingtest/main/scripts/setup-vps.sh | bash
+```
+
+Скрипт ставит Docker, добавляет swap, клонирует проект в `/opt/tradingtest`, генерирует `.env`
+со случайными паролями, закрывает все порты кроме SSH и запускает оба бота. FreqUI открывается
+через SSH-туннель: `ssh -N -L 8080:127.0.0.1:8080 -L 8081:127.0.0.1:8081 root@<ip>`.
+
+Обновление: `cd /opt/tradingtest && git pull && docker compose up -d`.
