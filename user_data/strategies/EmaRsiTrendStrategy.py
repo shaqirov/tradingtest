@@ -7,7 +7,8 @@ EmaRsiTrendStrategy — трендовая стратегия для спота.
   * Сила тренда: ADX выше порога.
   * Вход: откат — RSI пересекает снизу вверх уровень `buy_rsi` при восходящем тренде
     и объёме выше среднего.
-  * Выход: RSI перегрет или быстрая EMA пересекает медленную сверху вниз.
+  * Выход: RSI перегрет. Выход по пересечению EMA сверху вниз выключен по умолчанию
+    (`use_ema_exit`): на бэктесте 2025-2026 он закрывал сделки почти всегда в минус.
   * Риск: фиксированный стоп + трейлинг-стоп, ROI-таблица, защиты от серии убытков.
 
 Параметры, помеченные *Parameter, можно оптимизировать через hyperopt.
@@ -19,6 +20,7 @@ from pandas import DataFrame
 from technical import qtpylib
 
 from freqtrade.strategy import (
+    BooleanParameter,
     DecimalParameter,
     IntParameter,
     IStrategy,
@@ -68,6 +70,7 @@ class EmaRsiTrendStrategy(IStrategy):
     volume_factor = DecimalParameter(0.5, 2.0, default=1.0, decimals=1, space="buy")
 
     sell_rsi = IntParameter(65, 90, default=75, space="sell")
+    use_ema_exit = BooleanParameter(default=False, space="sell")
 
     @property
     def protections(self):
@@ -130,10 +133,11 @@ class EmaRsiTrendStrategy(IStrategy):
             ["exit_long", "exit_tag"],
         ] = (1, "rsi_overbought")
 
-        dataframe.loc[
-            qtpylib.crossed_below(ema_fast, ema_slow) & (dataframe["volume"] > 0),
-            ["exit_long", "exit_tag"],
-        ] = (1, "ema_cross_down")
+        if self.use_ema_exit.value:
+            dataframe.loc[
+                qtpylib.crossed_below(ema_fast, ema_slow) & (dataframe["volume"] > 0),
+                ["exit_long", "exit_tag"],
+            ] = (1, "ema_cross_down")
         return dataframe
 
     def confirm_trade_entry(
