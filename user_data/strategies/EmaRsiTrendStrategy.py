@@ -7,8 +7,9 @@ EmaRsiTrendStrategy — трендовая стратегия для спота.
   * Сила тренда: ADX выше порога.
   * Вход: откат — RSI пересекает снизу вверх уровень `buy_rsi` при восходящем тренде
     и объёме выше среднего.
-  * Выход: RSI перегрет. Выход по пересечению EMA сверху вниз выключен по умолчанию
-    (`use_ema_exit`): на бэктесте 2025-2026 он закрывал сделки почти всегда в минус.
+  * Выход: RSI перегрет или быстрая EMA пересекает медленную сверху вниз (`use_ema_exit`).
+    Выход по EMA почти всегда закрывает сделку в небольшой минус, но без него те же сделки
+    доходят до стоп-лосса: на бэктесте 2025-2026 итог -20% против -7.6%.
   * Риск: фиксированный стоп + трейлинг-стоп, ROI-таблица, защиты от серии убытков.
 
 Параметры, помеченные *Parameter, можно оптимизировать через hyperopt.
@@ -70,7 +71,7 @@ class EmaRsiTrendStrategy(IStrategy):
     volume_factor = DecimalParameter(0.5, 2.0, default=1.0, decimals=1, space="buy")
 
     sell_rsi = IntParameter(65, 90, default=75, space="sell")
-    use_ema_exit = BooleanParameter(default=False, space="sell")
+    use_ema_exit = BooleanParameter(default=True, space="sell")
 
     @property
     def protections(self):
