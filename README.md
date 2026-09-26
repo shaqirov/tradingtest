@@ -148,3 +148,13 @@ curl -fsSL https://raw.githubusercontent.com/shaqirov/tradingtest/main/scripts/s
 через SSH-туннель: `ssh -N -L 8080:127.0.0.1:8080 -L 8081:127.0.0.1:8081 root@<ip>`.
 
 Обновление: `cd /opt/tradingtest && git pull && docker compose up -d`.
+
+## Уведомления в Telegram
+
+Каждому боту нужен свой Telegram-бот (один токен нельзя использовать в двух ботах одновременно).
+
+1. В Telegram откройте [@BotFather](https://t.me/BotFather), отправьте `/newbot` и создайте два бота — получите два токена.
+2. Узнайте свой chat id у [@userinfobot](https://t.me/userinfobot) и нажмите **Start** в обоих своих ботах.
+3. На сервере: `cd /opt/tradingtest && git pull && bash scripts/setup-telegram.sh`.
+
+Токен второго бота (NFI) хранится в `.env.nfi`, который подключается только к сервису `freqtrade-nfi`.
