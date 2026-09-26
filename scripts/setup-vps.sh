@@ -52,6 +52,9 @@ if [ ! -f .env ]; then
     chmod 600 .env
 fi
 
+# The freqtrade image runs as ftuser (uid 1000); it must be able to write logs and the trade DB.
+chown -R 1000:1000 user_data
+
 echo "==> Firewall: allow SSH only (FreqUI is reached through an SSH tunnel)"
 ufw allow OpenSSH >/dev/null
 ufw --force enable >/dev/null
