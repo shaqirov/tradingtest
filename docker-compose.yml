@@ -40,4 +40,4 @@ services:
       --db-url sqlite:////freqtrade/user_data/tradesv3-nfi.sqlite
       --config /freqtrade/user_data/config.json
       --config /freqtrade/user_data/config-nfi.json
-      --strategy NostalgiaForInfinityX7
+      --strategy NostalgiaForInfinityX7Ru

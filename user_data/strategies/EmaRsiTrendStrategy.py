@@ -20,6 +20,8 @@ import talib.abstract as ta
 from pandas import DataFrame
 from technical import qtpylib
 
+from ru_notifications import RussianNotificationsMixin
+
 from freqtrade.strategy import (
     BooleanParameter,
     DecimalParameter,
@@ -29,7 +31,7 @@ from freqtrade.strategy import (
 )
 
 
-class EmaRsiTrendStrategy(IStrategy):
+class EmaRsiTrendStrategy(RussianNotificationsMixin, IStrategy):
     INTERFACE_VERSION = 3
 
     can_short = False

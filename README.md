@@ -158,3 +158,9 @@ curl -fsSL https://raw.githubusercontent.com/shaqirov/tradingtest/main/scripts/s
 3. На сервере: `cd /opt/tradingtest && git pull && bash scripts/setup-telegram.sh`.
 
 Токен второго бота (NFI) хранится в `.env.nfi`, который подключается только к сервису `freqtrade-nfi`.
+
+Сообщения о сделках приходят на русском: их отправляют сами стратегии через
+`user_data/strategies/ru_notifications.py`, а английские уведомления о входах/выходах отключены
+в `config.json` (`telegram.notification_settings`). NFI запускается как `NostalgiaForInfinityX7Ru` —
+та же стратегия с русскими уведомлениями. Ответы на команды (`/status`, `/profit`) остаются
+на английском: их текст зашит в Freqtrade.

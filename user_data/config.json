@@ -60,7 +60,15 @@
     "telegram": {
         "enabled": false,
         "token": "",
-        "chat_id": ""
+        "chat_id": "",
+        "allow_custom_messages": true,
+        "notification_settings": {
+            "startup": "off",
+            "entry": "off",
+            "entry_fill": "off",
+            "exit": "off",
+            "exit_fill": "off"
+        }
     },
     "api_server": {
         "enabled": true,
