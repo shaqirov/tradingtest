@@ -95,3 +95,31 @@ FREQTRADE__TELEGRAM__CHAT_ID=...
 По умолчанию — Binance. Для другой биржи (Bybit, OKX, Kraken и т.д.) поменяйте
 `exchange.name` в `config.json` и проверьте, что пары из `pair_whitelist` на ней торгуются.
 Список поддерживаемых бирж: `freqtrade list-exchanges`.
+
+## Популярные стратегии сообщества
+
+В `user_data/strategies/` лежат копии известных стратегий (лицензия GPL-3):
+
+| Стратегия | Таймфрейм | Источник |
+|---|---|---|
+| `NostalgiaForInfinityX7` | 5m (+15m/1h/4h/1d) | [iterativv/NostalgiaForInfinity](https://github.com/iterativv/NostalgiaForInfinity) |
+| `Supertrend`, `TrendRiderStrategy` | 1h | [freqtrade/freqtrade-strategies](https://github.com/freqtrade/freqtrade-strategies) |
+| `MultiMa` | 4h | freqtrade-strategies |
+| `CombinedBinHAndCluc`, `ClucMay72018`, `Strategy005` | 5m | freqtrade-strategies |
+
+Сравнение простых стратегий одной командой:
+
+```bash
+docker compose run --rm freqtrade download-data --config /freqtrade/user_data/config.json --timerange 20250101- --timeframes 5m 15m 1h 4h 1d
+docker compose run --rm freqtrade backtesting --config /freqtrade/user_data/config.json --timerange 20250101- --strategy-list EmaRsiTrendStrategy Supertrend TrendRiderStrategy MultiMa CombinedBinHAndCluc ClucMay72018 Strategy005
+```
+
+NostalgiaForInfinity требует свои настройки ордеров — добавьте второй конфиг `config-nfi.json`.
+Стратегия тяжёлая по памяти, начинайте с короткого периода:
+
+```bash
+docker compose run --rm freqtrade backtesting --config /freqtrade/user_data/config.json --config /freqtrade/user_data/config-nfi.json --strategy NostalgiaForInfinityX7 --timerange 20260601-
+```
+
+> NFI не использует классический стоп-лосс (`stoploss = -0.99`) и докупает позиции при просадке (DCA),
+> поэтому сделки могут висеть в минусе неделями. Смотрите на максимальную просадку, а не только на прибыль.
