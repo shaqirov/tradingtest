@@ -46,7 +46,14 @@ make up           # запуск бота в dry-run
 make logs         # логи
 ```
 
-FreqUI (веб-интерфейс) доступен на http://127.0.0.1:8080 — логин/пароль из `.env`.
+`docker compose up -d` запускает два бота в dry-run:
+
+| Бот | Стратегия | FreqUI |
+|---|---|---|
+| `freqtrade` | EmaRsiTrendStrategy | http://127.0.0.1:8080 |
+| `freqtrade-nfi` | NostalgiaForInfinityX7 | http://127.0.0.1:8081 |
+
+Логин/пароль — из `.env`. Запустить только один бот: `docker compose up -d freqtrade-nfi`.
 
 Параметры Makefile можно переопределять:
 
