@@ -1,0 +1,23 @@
+# Secrets
+.env
+user_data/config.private.json
+
+# Freqtrade runtime data
+user_data/*.sqlite
+user_data/*.sqlite-*
+user_data/logs/*
+!user_data/logs/.gitkeep
+user_data/data/*
+!user_data/data/.gitkeep
+user_data/backtest_results/*
+!user_data/backtest_results/.gitkeep
+user_data/hyperopt_results/
+user_data/hyperopts/
+user_data/plot/
+user_data/strategies/*.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
