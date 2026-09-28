@@ -1,0 +1,61 @@
+{
+    "exchange": {
+        "pair_whitelist": [
+            "BTC/USDT",
+            "ETH/USDT",
+            "SOL/USDT",
+            "XRP/USDT",
+            "ADA/USDT",
+            "DOGE/USDT",
+            "AVAX/USDT",
+            "LINK/USDT",
+            "DOT/USDT",
+            "LTC/USDT",
+            "BCH/USDT",
+            "TRX/USDT",
+            "XLM/USDT",
+            "ATOM/USDT",
+            "NEAR/USDT",
+            "UNI/USDT",
+            "FIL/USDT",
+            "ETC/USDT",
+            "ICP/USDT",
+            "APT/USDT",
+            "ARB/USDT",
+            "OP/USDT",
+            "SUI/USDT",
+            "INJ/USDT",
+            "AAVE/USDT",
+            "SEI/USDT",
+            "TIA/USDT",
+            "RUNE/USDT",
+            "GRT/USDT",
+            "SAND/USDT",
+            "MANA/USDT",
+            "AXS/USDT",
+            "GALA/USDT",
+            "CRV/USDT",
+            "LDO/USDT",
+            "IMX/USDT",
+            "ALGO/USDT",
+            "VET/USDT",
+            "HBAR/USDT",
+            "EGLD/USDT",
+            "THETA/USDT",
+            "FET/USDT",
+            "RENDER/USDT",
+            "PEPE/USDT",
+            "SHIB/USDT",
+            "WIF/USDT",
+            "BONK/USDT",
+            "JUP/USDT",
+            "ENA/USDT",
+            "ORDI/USDT"
+        ]
+    },
+    "pairlists": [
+        {
+            "method": "StaticPairList"
+        }
+    ]
+}

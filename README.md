@@ -164,3 +164,16 @@ curl -fsSL https://raw.githubusercontent.com/shaqirov/tradingtest/main/scripts/s
 в `config.json` (`telegram.notification_settings`). NFI запускается как `NostalgiaForInfinityX7Ru` —
 та же стратегия с русскими уведомлениями. Ответы на команды (`/status`, `/profit`) остаются
 на английском: их текст зашит в Freqtrade.
+
+### NFI на расширенном списке пар
+
+NFI рассчитана на ~100 пар; с 10 крупными монетами она торгует редко. Файлы:
+
+- `user_data/blacklist-binance.json` — чёрный список из репозитория NFI (стейблкоины, плечевые токены, делистинги);
+- `user_data/pairs-backtest-wide.json` — 50 ликвидных пар для бэктеста;
+- `user_data/pairs-live-wide.json` — автоматический отбор 60 пар по объёму для живого бота.
+
+```bash
+docker compose run --rm freqtrade download-data --config /freqtrade/user_data/config.json --config /freqtrade/user_data/pairs-backtest-wide.json --timerange 20250101- --timeframes 5m 15m 1h 4h 1d
+docker compose run --rm freqtrade backtesting --config /freqtrade/user_data/config.json --config /freqtrade/user_data/config-nfi.json --config /freqtrade/user_data/blacklist-binance.json --config /freqtrade/user_data/pairs-backtest-wide.json --strategy NostalgiaForInfinityX7 --timerange 20250101-20250401
+```
