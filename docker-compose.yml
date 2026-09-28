@@ -21,7 +21,7 @@ services:
       --config /freqtrade/user_data/config.json
       --strategy EmaRsiTrendStrategy
 
-  # Bot 2: NostalgiaForInfinityX7, FreqUI on http://127.0.0.1:8081
+  # Bot 2: NostalgiaForInfinityX7 on ~60 volume-sorted pairs, FreqUI on http://127.0.0.1:8081
   freqtrade-nfi:
     <<: *freqtrade
     container_name: freqtrade-nfi
@@ -40,4 +40,6 @@ services:
       --db-url sqlite:////freqtrade/user_data/tradesv3-nfi.sqlite
       --config /freqtrade/user_data/config.json
       --config /freqtrade/user_data/config-nfi.json
+      --config /freqtrade/user_data/blacklist-binance.json
+      --config /freqtrade/user_data/pairs-live-wide.json
       --strategy NostalgiaForInfinityX7Ru
