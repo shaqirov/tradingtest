@@ -46,7 +46,10 @@ make up           # запуск бота в dry-run
 make logs         # логи
 ```
 
-`docker compose up -d` запускает два бота в dry-run:
+`docker compose up -d` запускает бота NFI в dry-run. Бот EmaRsi отключён
+(слабый результат на бэктесте и в живой торговле) и запускается отдельно: `docker compose --profile emarsi up -d`.
+
+
 
 | Бот | Стратегия | FreqUI |
 |---|---|---|

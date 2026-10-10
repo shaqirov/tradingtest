@@ -8,9 +8,12 @@ x-freqtrade: &freqtrade
     - .env
 
 services:
-  # Bot 1: own strategy, FreqUI on http://127.0.0.1:8080
+  # Bot 1: own strategy, FreqUI on http://127.0.0.1:8080.
+  # Disabled by default (weak live/backtest results); start with `docker compose --profile emarsi up -d`.
+  # `docker compose run --rm freqtrade ...` (backtesting, downloads) still works.
   freqtrade:
     <<: *freqtrade
+    profiles: ["emarsi"]
     container_name: freqtrade
     ports:
       - "127.0.0.1:8080:8080"
