@@ -1,13 +1,14 @@
 {
     // Dynamic pairlist for the live NFI bot, based on NostalgiaForInfinity's
-    // configs/pairlist-volume-binance-usdt.json (trimmed to 60 pairs for a 4 GB server).
+    // configs/pairlist-volume-binance-usdt.json (trimmed to 60 pairs for a 4 GB server),
+    // restricted to coins listed 1+ year and in the market-cap top-100.
     "exchange": {
         "pair_whitelist": []
     },
     "pairlists": [
         {"method": "VolumePairList", "number_assets": 100, "sort_key": "quoteVolume", "refresh_period": 1800},
         {"method": "FullTradesFilter"},
-        {"method": "AgeFilter", "min_days_listed": 60},
+        {"method": "AgeFilter", "min_days_listed": 365},
         {"method": "PriceFilter", "low_price_ratio": 0.003},
         {"method": "SpreadFilter", "max_spread_ratio": 0.005},
         {
@@ -17,6 +18,8 @@
             "max_rate_of_change": 0.95,
             "refresh_period": 1800
         },
+        // Only coins in the CoinGecko top-100 by market cap: small caps produced the deep DCA bags.
+        {"method": "MarketCapPairList", "number_assets": 60, "max_rank": 100, "refresh_period": 86400},
         {"method": "VolumePairList", "number_assets": 60, "sort_key": "quoteVolume"}
     ]
 }

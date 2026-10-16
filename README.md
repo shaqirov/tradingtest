@@ -180,3 +180,12 @@ NFI рассчитана на ~100 пар; с 10 крупными монетам
 docker compose run --rm freqtrade download-data --config /freqtrade/user_data/config.json --config /freqtrade/user_data/pairs-backtest-wide.json --timerange 20250101- --timeframes 5m 15m 1h 4h 1d
 docker compose run --rm freqtrade backtesting --config /freqtrade/user_data/config.json --config /freqtrade/user_data/config-nfi.json --config /freqtrade/user_data/blacklist-binance.json --config /freqtrade/user_data/pairs-backtest-wide.json --strategy NostalgiaForInfinityX7 --timerange 20250101-20250401
 ```
+
+### Защита от «застрявших» сделок NFI
+
+После двух сделок (ERA, OGN), которые через докупки и derisk съели прибыль 24 удачных сделок:
+
+- в списке пар только монеты старше года и из топ-100 по капитализации (CoinGecko);
+- бот торгует 60% депозита (`tradable_balance_ratio: 0.6`), позиции и докупки меньше;
+- защиты в `NostalgiaForInfinityX7Ru`: пара блокируется на 2 дня после убытка > 3%,
+  новые входы ставятся на паузу на 12 ч, если закрытые сделки за 2 дня потеряли > 4% баланса.
