@@ -22,3 +22,4 @@ __pycache__/
 .venv/
 venv/
 .env.nfi
+user_data/pairs-backtest-current.json
